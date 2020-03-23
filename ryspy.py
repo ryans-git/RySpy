@@ -24,4 +24,4 @@ if __name__ == "__main__":
 
     while True:
         x = input("Enter Degree: ")
-        pan(x)
+        set_pan(x)
