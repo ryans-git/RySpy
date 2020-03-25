@@ -23,6 +23,23 @@ These instructions we made using my exact steps and will and may differ if you a
      * You may need to look at your router to see what IP address it was assigned.
    * Alternatively you can us an HDMI monitory and it should auto login 
 4. Update and install any normal Linux packages you like
+
+```
+sudo apt update && sudo apt upgrade
+```
+
+5. Disable LightDM if going Headless 
+
+```
+sudo systemctl stop lightdm
+sudo systemctl mask lightdm
+```
+
+6. Disable the stupid green status LED. Add this to `/etc/rc.local`
+
+```
+echo none > /sys/class/leds/status_led/trigger"
+```
    
 
 See [NanoPi M4 Wiki](http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4) for more information
@@ -30,29 +47,49 @@ See [NanoPi M4 Wiki](http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4) for m
 ### VNC Headless Setup
 1. Install TigerVNC
 
-<code>sudo apt install tigervnc-common tigervnc-viewer tigervnc-standalone-server tigervnc-xorg-extension</code>
+```sudo apt install tigervnc-common tigervnc-viewer tigervnc-standalone-server tigervnc-xorg-extension```
 
-2. Edit the VNC statup script to initialize LXDE
+2. Setup Password
 
-<code>
-cat > ~/.vnc/xstarxtup << EOF
-#!/bin/sh
+```
+vncserver
+```
+
+3. Stop vncserver to setup the Desktop Environment 
+
+```
+vncserver -kill :*
+```
+
+4. Edit the VNC statup script to initialize LXDE
+
+```
+cat > ~/.vnc/xstartup << EOF 
+#!/bin/sh 
 /usr/bin/terminator &
-openbox-lxde &
 /usr/bin/startlxde &
-vncserver :1 -localhost no
-EOF
-chmod +x ~/.vnc/xstarxtup
-</code>
 
-3. Instal RealVNC Client Viewer
-   * [Download](https://www.realvnc.com/en/connect/download/vnc/)
+# Used display 0 for headless
+vncserver :0 -localhost no
+EOF
+
+chmod +x ~/.vnc/xstarxtup
+```
+
+
+   * Still does not autstart at boot up for me. I need to ssh in and execute `vncserver` first. If you have a better way please let me know
+
+
+
+5. Instal VNC Client Viewer
+   * [Download RealVNC](https://www.realvnc.com/en/connect/download/vnc/)
+  
 
 ## Contribute
 Please feel free to contribute pull requests or create issues for bugs and feature requests.
 
 ## Author
-Ryan (https://github.com/ryans-git)
+* Ryan (https://github.com/ryans-git)
 
 ## Credits
 * [SunFounder PCA9685](https://github.com/sunfounder/SunFounder_PCA9685): PWM Servo Board Controlller 
