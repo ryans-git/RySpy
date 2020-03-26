@@ -84,6 +84,12 @@ chmod +x ~/.vnc/xstarxtup
 5. Instal VNC Client Viewer
    * [Download RealVNC](https://www.realvnc.com/en/connect/download/vnc/)
   
+## Pan-Tilt Setup
+1. Install smbus to talk to the servo board over I2C
+   
+```
+sudo apt -y install python-smbus
+```
 
 ## Contribute
 Please feel free to contribute pull requests or create issues for bugs and feature requests.
