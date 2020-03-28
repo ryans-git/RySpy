@@ -62,7 +62,7 @@ q  -> quit
         else:
             print("Invalid selection.")
     
-        print("deg:   " + str(deg))
+        #print("deg:   " + str(deg))
         print("PAN:   " + str(CURR_PAN))
         print("TILT:  " + str(CURR_TILT))
 
